@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   wordpress:
-    image: wordpress:latest
+    build:
+      context: ./wordpress
+      dockerfile: Dockerfile  # o Dockerfile.wordpress si lo llamaste así
+    #image: wordpress:latest
     container_name: wordpress
     ports:
       - "8080:80"
@@ -11,6 +14,23 @@ services:
       WORDPRESS_DB_USER: wordpress_user
       WORDPRESS_DB_PASSWORD: wordpress_password
       WORDPRESS_DB_NAME: wordpress_db
+    volumes:
+      - ./wordpress:/var/www/html
+      # - wordpress-data:/home/app/wordpress
+      # - /wordpress:/home/app/wordpress
+    depends_on:
+      - db
+
+  ftp:
+    image: fauria/vsftpd:latest
+    container_name: ftp
+    ports:
+      - "21:21"
+    # environment:
+    #   WORDPRESS_DB_HOST: db
+    #   WORDPRESS_DB_USER: wordpress_user
+    #   WORDPRESS_DB_PASSWORD: wordpress_password
+    #   WORDPRESS_DB_NAME: wordpress_db
     volumes:
       - ./wordpress:/var/www/html
     depends_on:

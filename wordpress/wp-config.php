@@ -22,7 +22,11 @@
 
 // IMPORTANT: this file needs to stay in-sync with https://github.com/WordPress/WordPress/blob/master/wp-config-sample.php
 // (it gets parsed by the upstream wizard in https://github.com/WordPress/WordPress/blob/f27cb65e1ef25d11b535695a660e7282b98eb742/wp-admin/setup-config.php#L356-L392)
-
+define('FS_METHOD', 'direct');
+// define('FTP_HOST', 'ftp:21');  
+// define('FTP_USER', 'user');
+// define('FTP_PASS', 'user');
+define('FTP_BASE', '/var/www/html/');  // Ruta al directorio de WordPress en el contenedor
 // a helper function to lookup "env_FILE", "env", then fallback
 if (!function_exists('getenv_docker')) {
 	// https://github.com/docker-library/wordpress/issues/588 (WP-CLI will load this file 2x)
